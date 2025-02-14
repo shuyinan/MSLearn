@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "MSLearn"
+version = "0.1.0"
+description = "Multi-State Surface Learning package"
+authors = [{ name = "Yinan Shu", email = "yinan.shu.0728@gmail.com" }]
+dependencies = [
+	"numpy",
+	"torch",
+	"torch-geometric",
+	"pyyaml"
+]
+
+[tool.setuptools]
+package-dir = {"MSLearn" = "src/MSLearn"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project.scripts]
+mslearn-train = "MSLearn.main:main"  # CLI command
+

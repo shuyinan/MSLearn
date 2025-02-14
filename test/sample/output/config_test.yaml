@@ -1,0 +1,25 @@
+database: sample.xyz
+database_style: canonical_xyz
+method: CDNN
+permutation: restrain
+permutation_order: 3
+permutation_pairs: [[1,2,3]]
+mol_rep: pip
+graph_rep:
+  edge_type: cutoff
+  node_features: ["ionization_energy", "atomic_number", "atomic_mass"]
+  edge_features: ["distance", "angle"]
+  cutoff_radius: 6.0
+architecture: nn
+
+batch_size: 64
+learning_rate: 0.0005
+num_epochs: 30
+hidden_layers: [10, 5]
+activation: gelu
+optimizer_type: adam
+loss_function: mse
+checkpoint_path: checkpoint_test.pth
+
+learning_rate: 1e-3
+scheduler_type: step

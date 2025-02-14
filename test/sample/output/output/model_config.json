@@ -1,0 +1,90 @@
+{
+    "database_style": "canonical_xyz",
+    "method": "CDNN",
+    "permutation": "constrain",
+    "permutation_order": 3,
+    "permutation_pairs": [
+        [
+            1,
+            2,
+            3
+        ]
+    ],
+    "mol_rep": "pip",
+    "graph_rep": {
+        "edge_type": [
+            "cutoff"
+        ],
+        "node_features": [
+            "ionization_energy",
+            "atomic_number",
+            "atomic_mass"
+        ],
+        "edge_features": [
+            "distance",
+            "angle"
+        ],
+        "cutoff_radius": 6.0
+    },
+    "architecture": "nn",
+    "train_dataset": "<MSLearn.dataset.XYZDataset object at 0x7f4f5189ff20>",
+    "diabatic_dataset": null,
+    "permutation_dataset": null,
+    "database": "sample.xyz",
+    "training_target": "energy",
+    "training_percent": 80,
+    "batch_size": 64,
+    "diabatic_restrain": false,
+    "diabatic_database": null,
+    "diabatic_weight": 1.0,
+    "permutation_restrain": false,
+    "permutation_database": null,
+    "permutation_weight": 1.0,
+    "topology_attention": false,
+    "topology_attention_weight": 0.0004,
+    "regularization": true,
+    "regularization_weight": 1e-07,
+    "gradient": false,
+    "gradient_weight": 1.0,
+    "nac": false,
+    "nac_weight": 0.001,
+    "num_epochs": 30,
+    "learning_rate": 0.001,
+    "optimizer_type": "adam",
+    "scheduler_type": "step",
+    "loss_threshold": 0.002,
+    "early_stopping_patience": 10,
+    "early_stopping_delta": 0.0002,
+    "loss_function": "mse",
+    "checkpoint_path": "checkpoint_test.pth",
+    "input_dim": 24,
+    "output_dim": 3,
+    "hidden_layers": [
+        10,
+        5
+    ],
+    "activation": "gelu",
+    "matrix_type": 5,
+    "mpnn_structyre": "linear",
+    "message_passing_network": [
+        128,
+        64
+    ],
+    "update_network": [
+        64,
+        32
+    ],
+    "edge_attr_dim": 0,
+    "parametric_mode": false,
+    "PM_config": {
+        "base_potential_type": null,
+        "R_indicator": null,
+        "R_indicator_train_dataset": null,
+        "R_indicator_permutation_dataset": null,
+        "pm": null,
+        "base_potential": null,
+        "base_potential_train_dataset": null,
+        "base_potential_permutation_dataset": null
+    },
+    "repsentation": "pip"
+}
