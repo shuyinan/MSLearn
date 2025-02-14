@@ -23,3 +23,5 @@ checkpoint_path: checkpoint_test.pth
 
 learning_rate: 1e-3
 scheduler_type: step
+
+parametric_mode: True

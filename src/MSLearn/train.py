@@ -55,10 +55,10 @@ class MSLPtrain:
                 "parametric_mode": self.config.get("parametric_mode", False),
                 "base_potential_type": self.config.get("base_potential_type"),
                 "pm": self.config.get("pm"),
-                "R_indicator": self.config.get("R_indicator"),
-                "base_potential": self.config.get("base_potential"),
-                "permuted_R_indicator": self.config.get("permuted_R_indicator"),
-                "permuted_base_potential": self.config.get("permuted_base_potential"),
+                "R_indicator": self.config.get("PM_config", {}).get("R_indicator_train_dataset"),
+                "base_potential": self.config.get("PM_config", {}).get("base_potential_train_dataset"),
+                "permuted_R_indicator": self.config.get("PM_config", {}).get("R_indicator_permutation_dataset"),
+                "permuted_base_potential": self.config.get("PM_config", {}).get("base_potential_permutation_dataset"),
                 "num_epochs": self.config["num_epochs"],
                 "learning_rate": self.config["learning_rate"],
                 "optimizer_type": self.config["optimizer_type"],
@@ -74,7 +74,6 @@ class MSLPtrain:
         )
 
         return self.model, history
-
 
 def save_checkpoint(model, optimizer, scheduler, epoch, history, best_val_loss, early_stopping_counter,
                     ema_loss, convergence_counter, previous_total_loss, checkpoint_path="checkpoint.pth"):

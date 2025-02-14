@@ -1,0 +1,121 @@
+PM_config:
+  R_indicator: null
+  R_indicator_permutation_dataset: null
+  R_indicator_train_dataset: !!python/object/apply:torch._utils._rebuild_tensor_v2
+  - !!python/object/apply:torch.storage._load_from_bytes
+    - !!binary |
+      gAKKCmz8nEb5IGqoUBkugAJN6QMugAJ9cQAoWBAAAABwcm90b2NvbF92ZXJzaW9ucQFN6QNYDQAA
+      AGxpdHRsZV9lbmRpYW5xAohYCgAAAHR5cGVfc2l6ZXNxA31xBChYBQAAAHNob3J0cQVLAlgDAAAA
+      aW50cQZLBFgEAAAAbG9uZ3EHSwR1dS6AAihYBwAAAHN0b3JhZ2VxAGN0b3JjaApGbG9hdFN0b3Jh
+      Z2UKcQFYCQAAADE1NTIwMDQzMnECWAMAAABjcHVxA0tgTnRxBFEugAJdcQBYCQAAADE1NTIwMDQz
+      MnEBYS5gAAAAAAAAAFGskT+rqqo/olijP00Dzj/8Vrw/8wS1P+sgLkBVVfVAoqfoQCapsUG/eqFB
+      EcqXQUOcH0CrqspAnUzGQH7vgkGz4npBh3Z1QeEdRkAAACBBdqQSQQgpBkKh+OJBAAAAQFGskT+r
+      qqo/olijP00Dzj/8Vrw/8wS1P+sgLkBVVfVAoqfoQCapsUG/eqFBEcqXQUOcH0CrqspAnUzGQH7v
+      gkGz4npBh3Z1QeEdRkAAACBBdqQSQQgpBkKh+OJBAAAAQPlIkj8gZqw/4ZKkP/mx0T8ssb4/uN22
+      PznFLUA/fPRAVp7nQKrhsEGkfaBBCq6WQWhKH0CU0clAUYPFQCwTgkEeW3lBWAR0QeEdRkAAACBB
+      dqQSQQgpBkKh+OJBAAAAQLpIkj+rZaw/RZKkP1mx0T80sL4/ody2Pz7JRkB7dxpBIk4aQX048EFE
+      ue9B3HfvQUUaFEBGNbRA3pepQOcSZEHrmExBJgtAQeEdRkAAACBBdqQSQQgpBkKh+OJBAAAAQA==
+  - 0
+  - !!python/tuple
+    - 4
+    - 24
+  - !!python/tuple
+    - 24
+    - 1
+  - false
+  - !!python/object/apply:collections.OrderedDict
+    - []
+  base_potential: null
+  base_potential_permutation_dataset: null
+  base_potential_train_dataset: !!python/object/apply:torch._utils._rebuild_tensor_v2
+  - !!python/object/apply:torch.storage._load_from_bytes
+    - !!binary |
+      gAKKCmz8nEb5IGqoUBkugAJN6QMugAJ9cQAoWBAAAABwcm90b2NvbF92ZXJzaW9ucQFN6QNYDQAA
+      AGxpdHRsZV9lbmRpYW5xAohYCgAAAHR5cGVfc2l6ZXNxA31xBChYBQAAAHNob3J0cQVLAlgDAAAA
+      aW50cQZLBFgEAAAAbG9uZ3EHSwR1dS6AAihYBwAAAHN0b3JhZ2VxAGN0b3JjaApGbG9hdFN0b3Jh
+      Z2UKcQFYCQAAADE1NTE5NDk0NHECWAMAAABjcHVxA0sMTnRxBFEugAJdcQBYCQAAADE1NTE5NDk0
+      NHEBYS4MAAAAAAAAAKRwnT+PwvU9FK5HP3E9qj8pXI8/CtfjPwAAwD+uR2E+mplZPwAAwD+uR2E+
+      mplZPw==
+  - 0
+  - !!python/tuple
+    - 4
+    - 3
+  - !!python/tuple
+    - 3
+    - 1
+  - false
+  - !!python/object/apply:collections.OrderedDict
+    - []
+  base_potential_type: atom+diatom
+  pm:
+  - -1.0
+  - 4.0
+  - 2.0
+activation: gelu
+architecture: nn
+batch_size: 64
+checkpoint_path: checkpoint_test.pth
+database: sample.xyz
+database_style: canonical_xyz
+diabatic_database: null
+diabatic_dataset_path: diabatic_dataset_path_here.xyz
+diabatic_restrain: false
+diabatic_weight: 1.0
+early_stopping_delta: 0.0002
+early_stopping_patience: 10
+edge_attr_dim: 0
+gradient: false
+gradient_weight: 1.0
+graph_rep:
+  cutoff_radius: 6.0
+  edge_features:
+  - distance
+  - angle
+  edge_type:
+  - cutoff
+  node_features:
+  - ionization_energy
+  - atomic_number
+  - atomic_mass
+hidden_layers:
+- 10
+- 5
+input_dim: 24
+learning_rate: 0.001
+loss_function: mse
+loss_threshold: 0.002
+matrix_type: 5
+message_passing_network:
+- 128
+- 64
+method: CDNN
+mol_rep: pip
+mpnn_structyre: linear
+nac: false
+nac_weight: 0.001
+num_epochs: 30
+optimizer_type: adam
+output_dim: 3
+parametric_mode: true
+permutation: constrain
+permutation_database: null
+permutation_dataset_path: permutation_dataset_path_here.xyz
+permutation_order: 3
+permutation_pairs:
+- - 1
+  - 2
+  - 3
+permutation_restrain: false
+permutation_weight: 1.0
+regularization: true
+regularization_weight: 1.0e-07
+repsentation: pip
+scheduler_type: step
+topology_attention: false
+topology_attention_weight: 0.0004
+train_dataset_path: dataset_path_here.xyz
+training_percent: 80
+training_target: energy
+update_network:
+- 64
+- 32

@@ -804,7 +804,10 @@ def parse_user_input(input_file):
                     permutation_override=(False if method["permutation"] == "restrain" else None),
                     representation_override="distance"
                 ) 
-                method["PM_config"]["R_indicator_train_dataset"] = copy.deepcopy([data[0] for data in pm_main_distance_dataset])
+                method["PM_config"]["R_indicator_train_dataset"] = copy.deepcopy(
+                    torch.stack([data['x'] if isinstance(data['x'], torch.Tensor) else torch.tensor(data['x'])
+                    for data in pm_main_distance_dataset])
+                )
                 # for permutation database:
                 if method["permutation_restrain"] == True:
                     pm_permutation_distance_dataset = create_dataset(
@@ -812,7 +815,10 @@ def parse_user_input(input_file):
                         method,
                         representation_override="distance"
                     )
-                    method["PM_config"]["R_indicator_permutation_dataset"] = copy.deepcopy([data[0] for data in pm_permutation_distance_dataset])
+                    method["PM_config"]["R_indicator_permutation_dataset"] = copy.deepcopy(
+                        torch.stack([data['x_perm'] if isinstance(data['x_perm'], torch.Tensor) else torch.tensor(data['x_perm'])
+                        for data in pm_permutation_distance_dataset])
+                    )
             elif method["database_style"] == "general":
                 print("""Warning:Using parametrically managed activation function, and 
                          database_style is set to general. Becasue the system is "atom+diatom",
@@ -821,9 +827,15 @@ def parse_user_input(input_file):
                          to use "xyz" or "canonical_xyz" database_style.
                     """)
                 # features is from obtaining main_dataset in previous parts of code
-                method["PM_config"]["R_indicator_train_dataset"] = copy.deepcopy([data[0] for data in train_dataset])
+                method["PM_config"]["R_indicator_train_dataset"] = copy.deepcopy(
+                    torch.stack([data['x'] if isinstance(data['x'], torch.Tensor) else torch.tensor(data['x'])
+                    for data in train_dataset])
+                )
                 if method["permutation_restrain"] == True:
-                    method["PM_config"]["R_indicator_permutation_dataset"] = copy.deepcopy([data[0] for data in permutation_dataset])
+                    method["PM_config"]["R_indicator_permutation_dataset"] = copy.deepcopy(
+                        torch.stack([data['x_perm'] if isinstance(data['x_perm'], torch.Tensor) else torch.tensor(data['x_perm'])
+                        for data in permutation_dataset])
+                    )
 
         if method["PM_config"]["pm"] is None:
             print("""Warning:parametrically managed activation function's smooth boxcar function parameters
@@ -846,7 +858,10 @@ def parse_user_input(input_file):
                     representation_override="distance",
                     target_key_override="base_potential"
                 )
-                method["PM_config"]["base_potential_train_dataset"] = copy.deepcopy([data[1] for data in pm_main_base_potential_dataset])
+                method["PM_config"]["base_potential_train_dataset"] = copy.deepcopy(
+                    torch.stack([data['y'] if isinstance(data['y'], torch.Tensor) else torch.tensor(data['y'])
+                    for data in pm_main_base_potential_dataset])
+                )
                 # for permutation database:
                 if method["permutation_restrain"] == True:
                     pm_permutation_base_potential_dataset = create_dataset(
@@ -855,7 +870,10 @@ def parse_user_input(input_file):
                         representation_override="distance",
                         target_key_override="base_potential"
                     )
-                    method["PM_config"]["base_potential_permutation_dataset"] = copy.deepcopy([data[1] for data in pm_permutation_base_potential_dataset])
+                    method["PM_config"]["base_potential_permutation_dataset"] = copy.deepcopy(
+                        torch.stack([data['y_perm'] if isinstance(data['y'], torch.Tensor) else torch.tensor(data['y'])
+                        for data in pm_permutation_base_potential_dataset])
+                    )
             if method["database_style"] in ["xyz", "general"]:
                 raise ValueError(f""" When using parametrically managed activation function and the 
                                       database_style is "xyz" or "general", base_potential has to be provided""")
