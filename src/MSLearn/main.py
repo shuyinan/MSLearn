@@ -838,7 +838,7 @@ def parse_user_input(input_file):
                         representation_override="distance"
                     )
                     method["PM_config"]["R_indicator_permutation_dataset"] = copy.deepcopy(
-                        torch.stack([data['x_perm'] if isinstance(data['x_perm'], torch.Tensor) else torch.tensor(data['x_perm'])
+                        torch.stack([data['x'] if isinstance(data['x'], torch.Tensor) else torch.tensor(data['x'])
                         for data in pm_permutation_distance_dataset])
                     )
             elif method["database_style"] == "general":
@@ -855,7 +855,7 @@ def parse_user_input(input_file):
                 )
                 if method["permutation_restrain"] == True:
                     method["PM_config"]["R_indicator_permutation_dataset"] = copy.deepcopy(
-                        torch.stack([data['x_perm'] if isinstance(data['x_perm'], torch.Tensor) else torch.tensor(data['x_perm'])
+                        torch.stack([data['x'] if isinstance(data['x'], torch.Tensor) else torch.tensor(data['x'])
                         for data in permutation_dataset])
                     )
 
