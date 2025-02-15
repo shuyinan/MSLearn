@@ -134,6 +134,8 @@ def parse_user_input(input_file):
         "learning_rate": 1e-3,
         "optimizer_type": "adam",
         "scheduler_type": "cosine",
+        "scheduler_frequency": 30,
+        "scheduler_scale": 0.5, 
         "loss_threshold": 0.002,
         "early_stopping_patience": 10,
         "early_stopping_delta": None,
@@ -333,6 +335,10 @@ def parse_user_input(input_file):
                     method["optimizer_type"] = value.lower()
                 elif key == "scheduler_type":
                     method["scheduler_type"] = value.lower()
+                elif key == "scheduler_frequency":
+                    method["scheduler_frequency"] = value
+                elif key == "scheduler_scale":
+                    method["scheduler_scale"] = value
                 elif key == "loss_threshold":
                     method["loss_threshold"] = value
                 elif key == "early_stopping_patience":

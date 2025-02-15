@@ -31,7 +31,7 @@ Features of current version
            and/or repulsive regions
 ==================================================
  
-Current Date and Time: 2025-02-15 08:08:08
+Current Date and Time: 2025-02-15 08:16:58
 =====================================================
  Start parsing input
 =====================================================
@@ -86,7 +86,7 @@ Warning:parametrically managed activation function's smooth boxcar function para
     },
     "architecture": "mpnn",
     "random_seed": 12379,
-    "train_dataset": "<MSLearn.dataset.XYZDataset object at 0x7f9f781ad6a0>",
+    "train_dataset": "<MSLearn.dataset.XYZDataset object at 0x7fd38057a2a0>",
     "diabatic_dataset": null,
     "permutation_dataset": null,
     "database": "sample.xyz",
@@ -182,4 +182,4 @@ MPNN parameters saved: output/mpnn_params.txt
 
 ===All training outputs saved successfully!===
 
-Current Date and Time: 2025-02-15 08:08:08
+Current Date and Time: 2025-02-15 08:16:59

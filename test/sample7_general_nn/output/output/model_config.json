@@ -25,7 +25,7 @@
     },
     "architecture": "nn",
     "random_seed": 12379,
-    "train_dataset": "<MSLearn.dataset.GeneralDataset object at 0x7f3153b72db0>",
+    "train_dataset": "<MSLearn.dataset.GeneralDataset object at 0x7fb4a0bcc530>",
     "diabatic_dataset": null,
     "permutation_dataset": null,
     "database": "sample.dat",

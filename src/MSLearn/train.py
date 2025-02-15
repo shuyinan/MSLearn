@@ -63,6 +63,8 @@ class MSLPtrain:
                 "learning_rate": self.config["learning_rate"],
                 "optimizer_type": self.config["optimizer_type"],
                 "scheduler_type": self.config.get("scheduler_type"),
+                "scheduler_frequency": self.config.get("scheduler_frequency"),
+                "scheduler_scale": self.config.get("scheduler_scale"),
                 "loss_threshold": self.config.get("loss_threshold", 0.002),
                 "early_stopping_patience": self.config.get("early_stopping_patience", 10),
                 "early_stopping_delta": self.config.get("early_stopping_delta", 0),
@@ -194,7 +196,7 @@ def MSLPtrainer(model,
               permuted_R_indicator=None, permuted_base_potential=None,
               # optimizer hyperparameters
               num_epochs=10000, learning_rate=1e-3,  
-              optimizer_type='adam', scheduler_type=None, 
+              optimizer_type='adam', scheduler_type=None, scheduler_frequency=100, scheduler_scale=0.5,  
               loss_threshold=0.002, early_stopping_patience=10, early_stopping_delta=0, 
               # loss function
               loss_function='mse',
@@ -291,7 +293,7 @@ def MSLPtrainer(model,
         raise ValueError(f"Unsupported optimizer: {optimizer_type}")
 
     if scheduler_type == 'step':
-        scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=30, gamma=0.5)
+        scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=scheduler_frequency, gamma=scheduler_scale)
     elif scheduler_type == 'cosine':
         scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=num_epochs)
     else:

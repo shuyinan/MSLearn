@@ -7,8 +7,8 @@ PM_config:
       gAKKCmz8nEb5IGqoUBkugAJN6QMugAJ9cQAoWBAAAABwcm90b2NvbF92ZXJzaW9ucQFN6QNYDQAA
       AGxpdHRsZV9lbmRpYW5xAohYCgAAAHR5cGVfc2l6ZXNxA31xBChYBQAAAHNob3J0cQVLAlgDAAAA
       aW50cQZLBFgEAAAAbG9uZ3EHSwR1dS6AAihYBwAAAHN0b3JhZ2VxAGN0b3JjaApGbG9hdFN0b3Jh
-      Z2UKcQFYCQAAADE0OTE0NzkyMHECWAMAAABjcHVxA0tgTnRxBFEugAJdcQBYCQAAADE0OTE0Nzky
-      MHEBYS5gAAAAAAAAAFGskT+rqqo/olijP00Dzj/8Vrw/8wS1P+sgLkBVVfVAoqfoQCapsUG/eqFB
+      Z2UKcQFYCQAAADE0MDkzNjc4NHECWAMAAABjcHVxA0tgTnRxBFEugAJdcQBYCQAAADE0MDkzNjc4
+      NHEBYS5gAAAAAAAAAFGskT+rqqo/olijP00Dzj/8Vrw/8wS1P+sgLkBVVfVAoqfoQCapsUG/eqFB
       EcqXQUOcH0CrqspAnUzGQH7vgkGz4npBh3Z1QeEdRkAAACBBdqQSQQgpBkKh+OJBAAAAQFGskT+r
       qqo/olijP00Dzj/8Vrw/8wS1P+sgLkBVVfVAoqfoQCapsUG/eqFBEcqXQUOcH0CrqspAnUzGQH7v
       gkGz4npBh3Z1QeEdRkAAACBBdqQSQQgpBkKh+OJBAAAAQPlIkj8gZqw/4ZKkP/mx0T8ssb4/uN22
@@ -33,8 +33,8 @@ PM_config:
       gAKKCmz8nEb5IGqoUBkugAJN6QMugAJ9cQAoWBAAAABwcm90b2NvbF92ZXJzaW9ucQFN6QNYDQAA
       AGxpdHRsZV9lbmRpYW5xAohYCgAAAHR5cGVfc2l6ZXNxA31xBChYBQAAAHNob3J0cQVLAlgDAAAA
       aW50cQZLBFgEAAAAbG9uZ3EHSwR1dS6AAihYBwAAAHN0b3JhZ2VxAGN0b3JjaApGbG9hdFN0b3Jh
-      Z2UKcQFYCQAAADE0OTE4ODI3MnECWAMAAABjcHVxA0sMTnRxBFEugAJdcQBYCQAAADE0OTE4ODI3
-      MnEBYS4MAAAAAAAAAKRwnT+PwvU9FK5HP3E9qj8pXI8/CtfjPwAAwD+uR2E+mplZPwAAwD+uR2E+
+      Z2UKcQFYCQAAADE0MDgwNzkyMHECWAMAAABjcHVxA0sMTnRxBFEugAJdcQBYCQAAADE0MDgwNzky
+      MHEBYS4MAAAAAAAAAKRwnT+PwvU9FK5HP3E9qj8pXI8/CtfjPwAAwD+uR2E+mplZPwAAwD+uR2E+
       mplZPw==
   - 0
   - !!python/tuple
@@ -52,7 +52,7 @@ PM_config:
   - 4.0
   - 2.0
 activation: gelu
-architecture: nn
+architecture: mpnn
 batch_size: 2
 checkpoint_path: checkpoint_test.pth
 database: sample.xyz
@@ -63,34 +63,40 @@ diabatic_restrain: false
 diabatic_weight: 1.0
 early_stopping_delta: 0.0002
 early_stopping_patience: 10
-edge_attr_dim: 0
+edge_attr_dim: 4
 gradient: false
 gradient_weight: 1.0
 graph_rep:
-  cutoff_radius: 5.0
+  cutoff_radius: 6.0
   edge_features:
   - distance
+  - angle
+  - dihedral_angle
+  - coulomb
   edge_type:
-  - full
+  - cutoff
   node_features:
+  - ionization_energy
   - atomic_number
+  - atomic_mass
+  - covalent_radius
 hidden_layers:
 - 10
 - 5
-input_dim: 24
-learning_rate: 0.01
+input_dim: 4
+learning_rate: 0.1
 loss_function: mse
 loss_threshold: 0.002
-matrix_type: 5
+matrix_type: 3
 message_passing_network:
-- 128
-- 64
+- 25
+- 15
 method: CDNN
-mol_rep: pip
-mpnn_structure: linear
+mol_rep: graph
+mpnn_structure: nonlinear
 nac: false
 nac_weight: 0.001
-num_epochs: 30
+num_epochs: 20
 optimizer_type: adam
 output_dim: 3
 parametric_mode: true
@@ -117,5 +123,5 @@ train_dataset_path: dataset_path_here.xyz
 training_percent: 80
 training_target: energy
 update_network:
-- 64
-- 32
+- 12
+- 8

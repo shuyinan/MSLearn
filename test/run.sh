@@ -10,6 +10,7 @@ TEST_DIRS=(
   "sample5_graph_mpnn"
   "sample6_graph_mpnn_pm"
   "sample7_general_nn"
+  "sample8_graph_mpnn_pm"
 )
 
 # Function to run a test in a given directory

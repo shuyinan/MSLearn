@@ -31,7 +31,7 @@ Features of current version
            and/or repulsive regions
 ==================================================
  
-Current Date and Time: 2025-02-15 08:07:41
+Current Date and Time: 2025-02-15 08:16:32
 =====================================================
  Start parsing input
 =====================================================
@@ -77,9 +77,9 @@ edge feature automatically detected as 0
     },
     "architecture": "nn",
     "random_seed": 12379,
-    "train_dataset": "<MSLearn.dataset.XYZDataset object at 0x7fd484da0740>",
+    "train_dataset": "<MSLearn.dataset.XYZDataset object at 0x7fdd633fb470>",
     "diabatic_dataset": null,
-    "permutation_dataset": "<MSLearn.dataset.XYZDataset object at 0x7fd495909c70>",
+    "permutation_dataset": "<MSLearn.dataset.XYZDataset object at 0x7fdd63496f60>",
     "database": "sample.xyz",
     "training_target": "energy",
     "training_percent": 80,
@@ -175,4 +175,4 @@ NN Weights and biases saved: output/ws_and_bs.txt
 
 ===All training outputs saved successfully!===
 
-Current Date and Time: 2025-02-15 08:07:53
+Current Date and Time: 2025-02-15 08:16:45
