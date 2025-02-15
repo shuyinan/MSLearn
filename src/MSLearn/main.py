@@ -959,23 +959,23 @@ def parse_user_input(input_file):
                     method,
                     permutation_override=(False if method["permutation"] == "restrain" else None)
                 )
-                method["PM_config"]["base_potential_train_dataset"] = copy.deepcopy([data[1] for data in pm_main_base_potential_dataset])
-                base_potential_feature_for_check = copy.deepcopy([data[0] for data in pm_main_base_potential_dataset])
+                method["PM_config"]["base_potential_train_dataset"] = copy.deepcopy([data['y'] for data in pm_main_base_potential_dataset])
+                base_potential_feature_for_check = copy.deepcopy([data['x'] for data in pm_main_base_potential_dataset])
                 if method["permutation_restrain"] == True:
                     pm_main_base_potential_dataset = create_dataset(
                         pm_main_base_potential_dataset_input,
                         method
                     )
-                    method["PM_config"]["base_potential_permutation_dataset"] = copy.deepcopy([data[1] for data in pm_permutation_base_potential_dataset])
-                    base_potential_permuted_feature_for_check = copy.deepcopy([data[0] for data in pm_permutation_base_potential_dataset])
+                    method["PM_config"]["base_potential_permutation_dataset"] = copy.deepcopy([data['y'] for data in pm_permutation_base_potential_dataset])
+                    base_potential_permuted_feature_for_check = copy.deepcopy([data['x'] for data in pm_permutation_base_potential_dataset])
                 #now becasue this is another database, we want to check and masure features are the same as original database 
-                original_feature = copy.deepcopy([data[0] for data in train_dataset])
+                original_feature = copy.deepcopy([data['x'] for data in train_dataset])
                 if not torch.allclose(base_potential_feature_for_check, original_feature, atol=1e-8):
                     diff = base_potential_feature_for_check - original_feature
                     max_diff = torch.max(torch.abs(diff))
                     raise ValueError("Feature tensors between original database and base_potential are different! Max difference: {max_diff.item()}")
                 if method["permutation_restrain"] == True:
-                    original_permuted_feature = copy.deepcopy([data[0] for data in permutation_dataset])
+                    original_permuted_feature = copy.deepcopy([data['x'] for data in permutation_dataset])
                     if not torch.allclose(base_potential_permuted_feature_for_check, original_permuted_feature, atol=1e-8):
                         diff = base_potential_permuted_feature_for_check - original_permuted_feature
                         max_diff = torch.max(torch.abs(diff))
