@@ -1,0 +1,5 @@
+MSLP(
+  (mpnn_layers): ModuleList(
+    (0-2): 3 x MSLPMPNNLayer()
+  )
+)

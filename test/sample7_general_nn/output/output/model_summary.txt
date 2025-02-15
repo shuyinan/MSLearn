@@ -1,0 +1,10 @@
+MSLP(
+  (feedforward): Sequential(
+    (0): Linear(in_features=10, out_features=10, bias=True)
+    (1): GELU(approximate='none')
+    (2): Linear(in_features=10, out_features=5, bias=True)
+    (3): GELU(approximate='none')
+    (4): Linear(in_features=5, out_features=5, bias=True)
+  )
+  (final_layer): Linear(in_features=5, out_features=6, bias=True)
+)

@@ -39,12 +39,18 @@ from .train import MSLPtrain
 
 # Set a fixed seed for reproducibility
 def set_seed(seed=1257394):
-    torch.manual_seed(seed)
-    torch.cuda.manual_seed_all(seed)
-    np.random.seed(seed)
-    random.seed(seed)
+    """Set the random seed for full reproducibility across all frameworks."""
+    torch.manual_seed(seed)                      # Set seed for PyTorch
+    torch.cuda.manual_seed_all(seed)             # Set seed for CUDA (if using GPUs)
+    np.random.seed(seed)                         # Set seed for NumPy
+    random.seed(seed)                            # Set seed for Python's random module
+
+    # Ensures deterministic behavior in cuDNN (useful for GPUs)
     torch.backends.cudnn.deterministic = True
-    torch.backends.cudnn.benchmark = False
+    torch.backends.cudnn.benchmark = False  # Disables auto-tuning for convolution layers
+
+    # Additional stability for newer PyTorch versions (optional)
+    torch.use_deterministic_algorithms(True, warn_only=True)
 
 
 def deep_update_dict(defaults, user_input):
@@ -98,6 +104,7 @@ def parse_user_input(input_file):
             "cutoff_radius": 5.0,
         },
         "architecture": "nn",
+        "random_seed": 12379,
 
         # actual databases, not names, but real databases
         "train_dataset": None,
@@ -132,6 +139,8 @@ def parse_user_input(input_file):
         "early_stopping_delta": None,
         "loss_function": "mse",
         "checkpoint_path": "checkpoint.pth",
+        "print_interval": 100,
+        "save_interval": 10,
 
         #network detail
         "input_dim": None,
@@ -141,7 +150,7 @@ def parse_user_input(input_file):
         "matrix_type": None,
 
         # MPNN
-        "mpnn_structyre": "linear",
+        "mpnn_structure": "linear",
         "message_passing_network": [128, 64],
         "update_network": [64, 32],
         "edge_attr_dim": None,
@@ -251,6 +260,9 @@ def parse_user_input(input_file):
                 elif key == "architecture":
                     method["architecture"] = value.lower()
         
+                elif key == "random_seed":
+                    method["random_seed"] = value
+
                 #============================
                 # training
                 #============================
@@ -331,6 +343,10 @@ def parse_user_input(input_file):
                     method["loss_function"] = value.lower()
                 elif key == "checkpoint_path":
                     method["checkpoint_path"] = value
+                elif key == "print_interval":
+                    method["print_interval"] = value
+                elif key == "save_interval":
+                    method["save_interval"] = value
                 # ====
                 # network detail
                 elif key == "input_dim":
@@ -1265,14 +1281,28 @@ def save_training_outputs(model, config, history, output_dir="output"):
             for name, param in model.named_parameters():
                 if "msg_nn" in name:
                     file.write(f"! Message NN {name}\n")
-                    for i, row in enumerate(param.data):
-                        for j, value in enumerate(row):
-                            file.write(f"       msg_nn({i + 1},{j + 1})= {value.item(): .10e}\n")
+                    if param.data.dim() == 0:  # If it's a scalar tensor
+                        file.write(f"       msg_nn = {param.item(): .10e}\n")
+                    else:
+                        for i, row in enumerate(param.data):
+                            if row.dim() == 0:  # Handle 0D tensor case inside the loop
+                                file.write(f"       msg_nn({i + 1})= {row.item(): .10e}\n")
+                            else:
+                                for j, value in enumerate(row):
+                                    file.write(f"       msg_nn({i + 1},{j + 1})= {value.item(): .10e}\n")
+
                 elif "update_nn" in name:
                     file.write(f"! Update NN {name}\n")
-                    for i, row in enumerate(param.data):
-                        for j, value in enumerate(row):
-                            file.write(f"       update_nn({i + 1},{j + 1})= {value.item(): .10e}\n")
+                    if param.data.dim() == 0:  # If it's a scalar tensor
+                        file.write(f"       update_nn = {param.item(): .10e}\n")
+                    else:
+                        for i, row in enumerate(param.data):
+                            if row.dim() == 0:  # Handle 0D tensor case inside the loop
+                                file.write(f"       update_nn({i + 1})= {row.item(): .10e}\n")
+                            else:
+                                for j, value in enumerate(row):
+                                    file.write(f"       update_nn({i + 1},{j + 1})= {value.item(): .10e}\n")
+
         print(f"MPNN parameters saved: {mpnn_params_path}")
 
     print("\n===All training outputs saved successfully!===\n")
@@ -1294,6 +1324,8 @@ def main():
     print("           Loaded Configuration")
     print("==========================================")
     print(json.dumps(config, indent=4, default=str))
+
+    set_seed(config["random_seed"])
 
     model_params = {
         "input_dim": config["input_dim"],

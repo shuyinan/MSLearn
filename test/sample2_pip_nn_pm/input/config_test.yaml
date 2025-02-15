@@ -1,0 +1,21 @@
+database: sample.xyz
+database_style: canonical_xyz
+method: CDNN
+permutation: constrain
+permutation_order: 3
+permutation_pairs: [[1,2,3]]
+architecture: nn
+
+batch_size: 2
+learning_rate: 0.01
+scheduler_type: step
+num_epochs: 30
+hidden_layers: [10, 5]
+activation: gelu
+optimizer_type: adam
+loss_function: mse
+checkpoint_path: checkpoint_test.pth
+print_interval: 1
+save_interval: 10
+
+parametric_mode: True

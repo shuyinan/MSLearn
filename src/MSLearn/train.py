@@ -68,6 +68,8 @@ class MSLPtrain:
                 "early_stopping_delta": self.config.get("early_stopping_delta", 0),
                 "loss_function": self.config["loss_function"],
                 "checkpoint_path": self.config["checkpoint_path"],
+                "print_interval": self.config["print_interval"],
+                "save_interval": self.config["save_interval"],
             },
             device=self.device
 
@@ -198,6 +200,10 @@ def MSLPtrainer(model,
               loss_function='mse',
               # restart
               checkpoint_path="checkpoint.pth", 
+              # print
+              print_interval=100, 
+              # save
+              save_interval=10,
               # device
               device='cuda' if torch.cuda.is_available() else 'cpu'):
 
@@ -504,7 +510,7 @@ def MSLPtrainer(model,
 
 
         # Logging for every 1000 epoches
-        if epoch % 1 == 0:
+        if epoch % print_interval == 0:
             model.eval()  # Set model to evaluation mode (no dropout, batch norm fixed)
             # ====Notice that we will evaluate true loss here. This is a real loss
             #     The intermediate loss we stored may be different from true loss
@@ -616,7 +622,7 @@ def MSLPtrainer(model,
         if scheduler:
             scheduler.step()
 
-        if epoch % 10 == 0:  # Save checkpoint every 100 epochs
+        if epoch % save_interval == 0:  # Save checkpoint every 100 epochs
             save_checkpoint(model, optimizer, scheduler, epoch, history, best_val_loss, 
                             early_stopping_counter, ema_loss, convergence_counter, 
                             previous_total_loss, checkpoint_path)

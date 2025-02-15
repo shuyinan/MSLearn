@@ -1,0 +1,96 @@
+{
+    "database_style": "canonical_xyz",
+    "method": "CDNN",
+    "permutation": "constrain",
+    "permutation_order": 3,
+    "permutation_pairs": [
+        [
+            1,
+            2,
+            3
+        ]
+    ],
+    "mol_rep": "graph",
+    "graph_rep": {
+        "edge_type": [
+            "cutoff"
+        ],
+        "node_features": [
+            "ionization_energy",
+            "atomic_number",
+            "atomic_mass",
+            "covalent_radius"
+        ],
+        "edge_features": [
+            "distance",
+            "angle",
+            "dihedral_angle",
+            "coulomb"
+        ],
+        "cutoff_radius": 6.0
+    },
+    "architecture": "mpnn",
+    "random_seed": 12379,
+    "train_dataset": "<MSLearn.dataset.XYZDataset object at 0x7fae63f39be0>",
+    "diabatic_dataset": null,
+    "permutation_dataset": null,
+    "database": "sample.xyz",
+    "training_target": "energy",
+    "training_percent": 80,
+    "batch_size": 2,
+    "diabatic_restrain": false,
+    "diabatic_database": null,
+    "diabatic_weight": 1.0,
+    "permutation_restrain": false,
+    "permutation_database": null,
+    "permutation_weight": 1.0,
+    "topology_attention": false,
+    "topology_attention_weight": 0.0004,
+    "regularization": true,
+    "regularization_weight": 1e-07,
+    "gradient": false,
+    "gradient_weight": 1.0,
+    "nac": false,
+    "nac_weight": 0.001,
+    "num_epochs": 20,
+    "learning_rate": 0.1,
+    "optimizer_type": "adam",
+    "scheduler_type": "step",
+    "loss_threshold": 0.002,
+    "early_stopping_patience": 10,
+    "early_stopping_delta": 0.0002,
+    "loss_function": "mse",
+    "checkpoint_path": "checkpoint_test.pth",
+    "print_interval": 1,
+    "save_interval": 10,
+    "input_dim": 4,
+    "output_dim": 3,
+    "hidden_layers": [
+        10,
+        5
+    ],
+    "activation": "gelu",
+    "matrix_type": 5,
+    "mpnn_structure": "nonlinear",
+    "message_passing_network": [
+        25,
+        15
+    ],
+    "update_network": [
+        12,
+        8
+    ],
+    "edge_attr_dim": 4,
+    "parametric_mode": false,
+    "PM_config": {
+        "base_potential_type": null,
+        "R_indicator": null,
+        "R_indicator_train_dataset": null,
+        "R_indicator_permutation_dataset": null,
+        "pm": null,
+        "base_potential": null,
+        "base_potential_train_dataset": null,
+        "base_potential_permutation_dataset": null
+    },
+    "repsentation": "pip"
+}

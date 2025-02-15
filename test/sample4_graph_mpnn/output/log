@@ -1,0 +1,182 @@
+==================================================
+  
+ Multi-State Surface Learning (MSLearn) Package
+  
+==================================================
+Authors: Yinan Shu, Donald G. Truhlar
+        University of Minnesota
+Version: 1.0
+         Updated on Feb 14, 2025
+  
+Features of current version
+    Available coordinate files:
+        general, xyz, canonical_xyz
+    Available network architecture: 
+        feed-forward neural network
+        message-passing neural network
+    Available molecular representation:
+        xyz, zmatrix, distance
+        permutation invaraint polynomials (PIPs) of distances,
+        graph
+    Available methods:
+        diabatization by deep neural network (DDNN)
+        compatibilization by deep neural network (CDNN)
+            with controllable matrix form
+  
+    physical properties:
+        1. using permutation invariant molecular representation or
+           a permuted database to constrain or restrain permutation symmetry
+        2. using parametrically managed activation function to enforce
+           correct behavior of potential energy surfaces (PESs) in asymptotic
+           and/or repulsive regions
+==================================================
+ 
+Current Date and Time: 2025-02-15 08:07:58
+=====================================================
+ Start parsing input
+=====================================================
+Successfully loaded YAML file: config_test.yaml
+Start validating keywords and checking potential conflict
+Warning: permutation is required to be constrained,
+                     molecular representation can currently ONLY be pip or graph,
+                     change molecular representation to permutation invariant polynomials
+                     of distances.
+input feature automatically detected as 3
+output target automatically detected as 3
+edge feature automatically detected as 2
+=====================================================
+ Input file parsing finished
+=====================================================
+==========================================
+           Loaded Configuration
+==========================================
+{
+    "database_style": "canonical_xyz",
+    "method": "CDNN",
+    "permutation": "constrain",
+    "permutation_order": 3,
+    "permutation_pairs": [
+        [
+            1,
+            2,
+            3
+        ]
+    ],
+    "mol_rep": "graph",
+    "graph_rep": {
+        "edge_type": [
+            "cutoff"
+        ],
+        "node_features": [
+            "ionization_energy",
+            "atomic_number",
+            "atomic_mass"
+        ],
+        "edge_features": [
+            "distance",
+            "angle"
+        ],
+        "cutoff_radius": 6.0
+    },
+    "architecture": "mpnn",
+    "random_seed": 12379,
+    "train_dataset": "<MSLearn.dataset.XYZDataset object at 0x7f0f93824230>",
+    "diabatic_dataset": null,
+    "permutation_dataset": null,
+    "database": "sample.xyz",
+    "training_target": "energy",
+    "training_percent": 80,
+    "batch_size": 2,
+    "diabatic_restrain": false,
+    "diabatic_database": null,
+    "diabatic_weight": 1.0,
+    "permutation_restrain": false,
+    "permutation_database": null,
+    "permutation_weight": 1.0,
+    "topology_attention": false,
+    "topology_attention_weight": 0.0004,
+    "regularization": true,
+    "regularization_weight": 1e-07,
+    "gradient": false,
+    "gradient_weight": 1.0,
+    "nac": false,
+    "nac_weight": 0.001,
+    "num_epochs": 20,
+    "learning_rate": 0.1,
+    "optimizer_type": "adam",
+    "scheduler_type": "step",
+    "loss_threshold": 0.002,
+    "early_stopping_patience": 10,
+    "early_stopping_delta": 0.0002,
+    "loss_function": "mse",
+    "checkpoint_path": "checkpoint_test.pth",
+    "print_interval": 1,
+    "save_interval": 10,
+    "input_dim": 3,
+    "output_dim": 3,
+    "hidden_layers": [
+        10,
+        5
+    ],
+    "activation": "gelu",
+    "matrix_type": 5,
+    "mpnn_structure": "linear",
+    "message_passing_network": [
+        128,
+        64
+    ],
+    "update_network": [
+        64,
+        32
+    ],
+    "edge_attr_dim": 2,
+    "parametric_mode": false,
+    "PM_config": {
+        "base_potential_type": null,
+        "R_indicator": null,
+        "R_indicator_train_dataset": null,
+        "R_indicator_permutation_dataset": null,
+        "pm": null,
+        "base_potential": null,
+        "base_potential_train_dataset": null,
+        "base_potential_permutation_dataset": null
+    },
+    "repsentation": "pip"
+}
+Epoch 0 - True Loss Computed:Total_Training_Loss = 8996.5429688, Adiabatic_Loss = 8996.5429688, Loss_change (from batch) = -inf, Regularization_Term = 0.0000011, 
+Checkpoint saved at epoch 0
+Epoch 1 - True Loss Computed:Total_Training_Loss = 4098.1425781, Adiabatic_Loss = 4098.1425781, Loss_change (from batch) = -1229.7041016, Regularization_Term = 0.0000015, 
+Epoch 2 - True Loss Computed:Total_Training_Loss = 2455.2299805, Adiabatic_Loss = 2455.2299805, Loss_change (from batch) = -5869.1787109, Regularization_Term = 0.0000021, 
+Epoch 3 - True Loss Computed:Total_Training_Loss = 1443.1214600, Adiabatic_Loss = 1443.1214600, Loss_change (from batch) = -1085.6025391, Regularization_Term = 0.0000020, 
+Epoch 4 - True Loss Computed:Total_Training_Loss = 1328.5737305, Adiabatic_Loss = 1328.5737305, Loss_change (from batch) = 244.4786377, Regularization_Term = 0.0000022, 
+Epoch 5 - True Loss Computed:Total_Training_Loss = 161.2232666, Adiabatic_Loss = 161.2232666, Loss_change (from batch) = -728.0494995, Regularization_Term = 0.0000026, 
+Epoch 6 - True Loss Computed:Total_Training_Loss = 658.8006592, Adiabatic_Loss = 658.8006592, Loss_change (from batch) = -276.8843994, Regularization_Term = 0.0000028, 
+Epoch 7 - True Loss Computed:Total_Training_Loss = 184.3013916, Adiabatic_Loss = 184.3013916, Loss_change (from batch) = -253.9678345, Regularization_Term = 0.0000028, 
+Epoch 8 - True Loss Computed:Total_Training_Loss = 478.3937988, Adiabatic_Loss = 478.3937988, Loss_change (from batch) = -64.8761902, Regularization_Term = 0.0000029, 
+Epoch 9 - True Loss Computed:Total_Training_Loss = 166.8159332, Adiabatic_Loss = 166.8159332, Loss_change (from batch) = 116.2745056, Regularization_Term = 0.0000031, 
+Epoch 10 - True Loss Computed:Total_Training_Loss = 133.6840668, Adiabatic_Loss = 133.6840668, Loss_change (from batch) = -298.8906250, Regularization_Term = 0.0000033, 
+Checkpoint saved at epoch 10
+Epoch 11 - True Loss Computed:Total_Training_Loss = 212.1370239, Adiabatic_Loss = 212.1370239, Loss_change (from batch) = 71.0422211, Regularization_Term = 0.0000035, 
+Epoch 12 - True Loss Computed:Total_Training_Loss = 41.0146179, Adiabatic_Loss = 41.0146179, Loss_change (from batch) = -36.2700653, Regularization_Term = 0.0000035, 
+Epoch 13 - True Loss Computed:Total_Training_Loss = 114.3507690, Adiabatic_Loss = 114.3507690, Loss_change (from batch) = -99.5595322, Regularization_Term = 0.0000034, 
+Epoch 14 - True Loss Computed:Total_Training_Loss = 95.6819458, Adiabatic_Loss = 95.6819458, Loss_change (from batch) = 66.6596909, Regularization_Term = 0.0000035, 
+Epoch 15 - True Loss Computed:Total_Training_Loss = 8.3344851, Adiabatic_Loss = 8.3344851, Loss_change (from batch) = -50.3557129, Regularization_Term = 0.0000036, 
+Epoch 16 - True Loss Computed:Total_Training_Loss = 53.1802750, Adiabatic_Loss = 53.1802750, Loss_change (from batch) = -55.9982414, Regularization_Term = 0.0000037, 
+Epoch 17 - True Loss Computed:Total_Training_Loss = 48.7405548, Adiabatic_Loss = 48.7405548, Loss_change (from batch) = 47.9491806, Regularization_Term = 0.0000038, 
+Epoch 18 - True Loss Computed:Total_Training_Loss = 5.9569683, Adiabatic_Loss = 5.9569683, Loss_change (from batch) = -29.0553780, Regularization_Term = 0.0000037, 
+Epoch 19 - True Loss Computed:Total_Training_Loss = 32.9615517, Adiabatic_Loss = 32.9615517, Loss_change (from batch) = -21.7845211, Regularization_Term = 0.0000037, 
+==========================================
+           Training finished
+==========================================
+Trained model saved: output/trained_model.pth
+Model configuration saved: output/model_config.json
+Model configuration saved successfully at: output/model_config.yaml
+Model configuration saved to output/model_config.json
+Training history saved to output/training_history.csv
+Training history saved to output/true_training_history.csv
+Model summary saved: output/model_summary.txt
+MPNN parameters saved: output/mpnn_params.txt
+
+===All training outputs saved successfully!===
+
+Current Date and Time: 2025-02-15 08:07:59
