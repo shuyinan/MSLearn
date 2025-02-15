@@ -962,7 +962,7 @@ def parse_user_input(input_file):
                 method["PM_config"]["base_potential_train_dataset"] = copy.deepcopy([data['y'] for data in pm_main_base_potential_dataset])
                 base_potential_feature_for_check = copy.deepcopy([data['x'] for data in pm_main_base_potential_dataset])
                 if method["permutation_restrain"] == True:
-                    pm_main_base_potential_dataset = create_dataset(
+                    pm_permutation_base_potential_dataset = create_dataset(
                         pm_main_base_potential_dataset_input,
                         method
                     )
