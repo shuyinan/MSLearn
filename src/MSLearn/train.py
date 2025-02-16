@@ -580,8 +580,8 @@ def MSLPtrainer(model,
                     # Compute true permutation loss
                     if permutation_loader:
                         for batch, batch_R, batch_P in permutation_loader_test:
-                            permutation_batch_loss, true_permutation_loss, tmp = batch_loss_eval(
-                            batch, ase_potential_type, batch_R, pm, batch_P, 
+                            permutation_batch_loss, true_permutation_loss, tmp = batch_loss_eval_pm(
+                            batch, base_potential_type, batch_R, pm, batch_P, 
                             model, criterion, "energy", true_permutation_loss, permutation_weight, tmp)
                         true_permutation_loss /= len(permutation_loader)
                         if topology_attention:
