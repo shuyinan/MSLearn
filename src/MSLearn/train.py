@@ -136,6 +136,16 @@ def batch_loss_eval(batch, model, criterion, target, loss1, weight, loss2):
         x, edge_index, edge_attr, batch_idx = batch.x, batch.edge_index, batch.edge_attr, batch.batch
         y = batch.y.view(batch.num_graphs, -1)
 
+    device='cuda' if torch.cuda.is_available() else 'cpu'
+    x = x.to(device)
+    y = y.to(device)
+    if edge_index is not None:
+        edge_index = edge_index.to(device)
+    if edge_attr is not None:
+        edge_attr = edge_attr.to(device)
+    if batch_idx is not None:
+        batch_idx = batch_idx.to(device)
+
     unique_elements, output = model(x, edge_index=edge_index, edge_attr=edge_attr, batch=batch_idx)
     if target == "energy":
         batch_loss = criterion(output.real, y)
@@ -150,6 +160,7 @@ def batch_loss_eval(batch, model, criterion, target, loss1, weight, loss2):
 
 
 def batch_loss_eval_pm(batch, base_potential_type, batch_R, pm, batch_P, model, criterion, target, loss1, weight, loss2):
+
     if model.architecture == 'nn':
         x = batch.x.view(batch.num_graphs, -1)
         edge_index, edge_attr, batch_idx = None, None, None
@@ -157,6 +168,16 @@ def batch_loss_eval_pm(batch, base_potential_type, batch_R, pm, batch_P, model, 
     elif model.architecture == 'mpnn':
         x, edge_index, edge_attr, batch_idx = batch.x, batch.edge_index, batch.edge_attr, batch.batch
         y = batch.y.view(batch.num_graphs, -1)
+
+    device='cuda' if torch.cuda.is_available() else 'cpu'
+    x = x.to(device)
+    y = y.to(device)
+    if edge_index is not None:
+        edge_index = edge_index.to(device)
+    if edge_attr is not None:
+        edge_attr = edge_attr.to(device)
+    if batch_idx is not None:
+        batch_idx = batch_idx.to(device)
 
     unique_elements, output = model(x, edge_index=edge_index, edge_attr=edge_attr, batch=batch_idx,
                                     parametric_mode=True, base_potential_type=base_potential_type,
